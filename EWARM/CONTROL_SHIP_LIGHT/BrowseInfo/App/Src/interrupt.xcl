@@ -1,4 +1,4 @@
-"D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\PRJ_CONTROL_SHIP_LIGHT\App\Src\interrupt.c"
+"D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\App\Src\interrupt.c"
 -std=c11
 -ferror-limit=0
 -fbracket-depth=512
@@ -9,7 +9,7 @@ D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\
 -o
 D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\CONTROL_SHIP_LIGHT\BrowseInfo\App\Src\interrupt.pbi
 -I
-D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\PRJ_CONTROL_SHIP_LIGHT\App\Src
+D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\App\Src
 -I
 D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM/../Core/Inc
 -I

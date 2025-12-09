@@ -1,6 +1,6 @@
 ###############################################################################
 #
-# IAR ELF Linker V9.10.2.313/W64 for ARM                  10/Dec/2025  00:45:27
+# IAR ELF Linker V9.10.2.313/W64 for ARM                  10/Dec/2025  00:47:28
 # Copyright 2007-2021 IAR Systems AB.
 #
 #    Output file  =
@@ -9,7 +9,7 @@
 #        D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\CONTROL_SHIP_LIGHT\List\CONTROL_SHIP_LIGHT.map
 #    Command line =
 #        -f
-#        D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\CONTROL_SHIP_LIGHT\Exe\CONTROL_SHIP_LIGHT.out.rsp
+#        D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\CONTROL_SHIP_LIGHT\List\CONTROL_SHIP_LIGHT.map.rsp
 #        (D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\CONTROL_SHIP_LIGHT\Obj\App\Src\app.o
 #        D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\CONTROL_SHIP_LIGHT\Obj\App\Src\board.o
 #        D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\CONTROL_SHIP_LIGHT\Obj\Common\Src\calculator.o
