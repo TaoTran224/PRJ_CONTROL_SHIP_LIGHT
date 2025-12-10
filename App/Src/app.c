@@ -123,8 +123,6 @@ void LoadBattery(void)
     }
 	SetupInit();
 #ifdef DBG_SEND
-    logLen = sprintf(log1, "Address.eu8Mode = %d\n", (uint16_t)Address.eu8Mode);
-    DBG_SendStr(log1);
     logLen = sprintf(log1, "Address.u8Master = %d\n", (uint16_t)Address.u8Master);
     DBG_SendStr(log1);
     DBG_SendBuffer(&Address.u8Master, 1);
@@ -135,8 +133,6 @@ void LoadBattery(void)
     DBG_SendStr(log1);
     DBG_SendBuffer(&Address.u8Full, 1);
     logLen = sprintf(log1, "Beacon.u32TimeWait = %d\n", Beacon.u32TimeWait);
-    DBG_SendStr(log1);
-    logLen = sprintf(log1, "Address.eu8NumInput = %d\n", Address.eu8NumInput);
     DBG_SendStr(log1);
 	//Battery_Measurement();
 	//DebugOut();
@@ -177,9 +173,7 @@ void Rf_RecProcess(void)
 			logLen = sprintf(log1, "INPUT=%d\n",Rf.au8Buf[5]>>4);
         	DBG_SendStr(log1);
 #endif
-			Rf.au8Buf[2] = Lora_u8Seq++;
-			Rf.au8Buf[Rf.u16BufRealLen - 2] = XOR_Cal(Rf.au8Buf, 1, Rf.u16BufRealLen - 3);
-			Lora_Send(Rf.au8Buf, Rf.u16BufRealLen);
+
 		}
 		Rf_SendData((uint8_t*)"V1 TRANSFER RETURN\n", 19);
 		Rf_ModeRx();

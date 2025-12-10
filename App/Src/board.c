@@ -64,34 +64,14 @@ void SystemClock_Config(void)
 
 void SetupInit(void)
 {
-//    if (false == HAL_GPIO_ReadPin(S8_GPIO_Port, S8_Pin))
-//    {
-//        Address.eu8Mode = M_HEAVY_GUN;
-//    }
-//    else
-//    {
-//        Address.eu8Mode = M_GUN;
-//    }
-//    Address.u8Master = ((uint8_t)((~HAL_GPIO_ReadPin(S8_GPIO_Port, S8_Pin)) & 0x01) << 7) | \
-//                        ((uint8_t)((~HAL_GPIO_ReadPin(S7_GPIO_Port, S7_Pin)) & 0x01) << 6) | \
-//                        ((uint8_t)((~HAL_GPIO_ReadPin(S6_GPIO_Port, S6_Pin)) & 0x01) << 5) | \
-//                        ((uint8_t)((~HAL_GPIO_ReadPin(S5_GPIO_Port, S5_Pin)) & 0x01) << 4);
-//
-//    Address.u8Slave = ((uint8_t)((~HAL_GPIO_ReadPin(S4_GPIO_Port, S4_Pin)) & 0x01) << 1) | \
-//                        (uint8_t)((~HAL_GPIO_ReadPin(S3_GPIO_Port, S3_Pin)) & 0x01);
 
-    Address.u8Full = Address.u8Master | (Address.u8Slave << 2);
-    Beacon.u32TimeWait = (((uint32_t)Address.u8Slave) << 9) + 200;
-    Beacon.u8TimeWaitToSendLora = Address.u8Slave << 4;
-
-    if (false == HAL_GPIO_ReadPin(S2_GPIO_Port, S2_Pin))
-    {
-        Address.eu8NumInput = 8;
-    }
-    else
-    {
-        Address.eu8NumInput = 4;
-    }
+    Address.u8Full = ((uint8_t)((~HAL_GPIO_ReadPin(S1_GPIO_Port, S1_Pin)) & 0x01) << 2) | \
+		              ((uint8_t)((~HAL_GPIO_ReadPin(S2_GPIO_Port, S2_Pin)) & 0x01) << 1) | \
+                       (uint8_t)((~HAL_GPIO_ReadPin(S3_GPIO_Port, S3_Pin)) & 0x01);
+	Address.u8Master = Address.u8Full;
+    Address.u8Slave = Address.u8Full;
+//    Beacon.u32TimeWait = (((uint32_t)Address.u8Slave) << 9) + 200;
+//    Beacon.u8TimeWaitToSendLora = Address.u8Slave << 4;
 }
 
 void StartUp(void)
@@ -163,38 +143,7 @@ void delay_ms(uint32_t t)
 
 void WDT_Clear(void)
 {
-	//HAL_IWDG_Refresh(&hiwdg);
+	HAL_IWDG_Refresh(&hiwdg);
 }
 
-void Pulse(void)
-{
-	HAL_GPIO_WritePin(Output[1].GPIO, Output[1].GPIO_Pin, GPIO_PIN_SET);
-//	delay_us(1);
-//	HAL_GPIO_WritePin(Output[0].GPIO, Output[0].GPIO_Pin, GPIO_PIN_RESET);
-//	delay_us(1);
-// 	HAL_GPIO_WritePin(Output[1].GPIO, Output[1].GPIO_Pin, GPIO_PIN_SET);
-//	delay_us(1);
-//	HAL_GPIO_WritePin(Output[1].GPIO, Output[1].GPIO_Pin, GPIO_PIN_RESET);
-//	delay_us(300);
-//	//delay_ms(200);
-////	HAL_GPIO_WritePin(Output[0].GPIO, Output[0].GPIO_Pin, GPIO_PIN_SET);
-//	HAL_GPIO_WritePin(Output[2].GPIO, Output[2].GPIO_Pin, GPIO_PIN_SET);
-//	delay_us(1000);
-//	HAL_GPIO_WritePin(Output[0].GPIO, Output[0].GPIO_Pin, GPIO_PIN_RESET);
-//	HAL_GPIO_WritePin(Output[2].GPIO, Output[2].GPIO_Pin, GPIO_PIN_RESET);
-//	delay_ms(200);
-		//for (uint8_t i = 0; i<100; i++)
-	{
-		HAL_GPIO_WritePin(Output[0].GPIO, Output[0].GPIO_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(Output[2].GPIO, Output[2].GPIO_Pin, GPIO_PIN_SET);
-		delay_us(3);
-		HAL_GPIO_WritePin(Output[0].GPIO, Output[0].GPIO_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(Output[2].GPIO, Output[2].GPIO_Pin, GPIO_PIN_RESET);
-		delay_us(150);
-	}
 
-//	delay_ms(100);
-//	WDT_Clear();
-//	delay_ms(100);
-//	WDT_Clear();
-}

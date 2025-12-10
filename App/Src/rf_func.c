@@ -10,7 +10,7 @@ RfType Rf;
 void Rf_Init(void)
 {
     Si4432_Init();
-	Rf_SetChannel(Address.u8Full>>2);
+	Rf_SetChannel(Address.u8Full);
 }
 
 void Rf_SendData(uint8_t* buf, const uint8_t len)

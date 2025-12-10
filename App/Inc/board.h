@@ -22,9 +22,9 @@
 #define TIME_BROKEN TIME_SHORT_CIRCUIT
 #define BEACON_MAX_LEN (uint16_t)(20)
 
-#define ADDR_MASTER (uint8_t)(0xF0)
-#define ADDR_SLAVE (uint8_t)(0x0C)
-#define ADDR_FULL (uint8_t)(0xFC)
+#define ADDR_MASTER (uint8_t)(0xFF)
+#define ADDR_SLAVE (uint8_t)(0xFF)
+#define ADDR_FULL (uint8_t)(0xFF)
 
 
 typedef struct
@@ -57,8 +57,8 @@ typedef struct
     uint8_t u8Master;
     uint8_t u8Slave;
     uint8_t u8Full;
-    AddressModeType eu8Mode;
-	uint8_t eu8NumInput;
+    //AddressModeType eu8Mode;
+	//uint8_t eu8NumInput;
 	uint16_t u8_rf;
 } __attribute__((packed)) AddressType;
 

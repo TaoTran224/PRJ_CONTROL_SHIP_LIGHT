@@ -39,24 +39,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
 #ifdef DBG_SEND
         logTime++;
 #endif
-		if ((true == Lora_Rec.bFlagRec) && (false == State.bits.S_PROCESS_LORA))
-        {
-            if (30 <= Lora_Rec.u16Timeout++)
-            {
-                Lora_Rec.bFlagRec = false;
-                State.bits.S_PROCESS_LORA = true;
-            }
-        }
-
-        if ((true == DBG_Rec.bFlagRec) && (false == State.bits.S_SEND_DBG))
-        {
-            if (30 <= DBG_Rec.u16Timeout++)
-            {
-                DBG_Rec.bFlagRec = false;
-                State.bits.S_SEND_DBG = true;
-            }
-        }
-		u32TimeSendVol++;
 		u32TimeConfigRf++;
         if (false == State.bits.S_STARTUP)
         {
@@ -69,10 +51,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
                 HAL_GPIO_WritePin(LED_RUN_GPIO_Port, LED_STT_Pin, GPIO_PIN_SET);
                 LED_Blink = 0;
             }
-			if ((true == MaskState.bits.S_PROCESS_BUTTON) && (false == State.bits.S_PROCESS_BUTTON))
-			{
-				State.bits.S_PROCESS_BUTTON = true;
-			}
 		}
 	}
 	else if (htim->Instance == htim3.Instance) // button, 10ms
@@ -86,32 +64,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart)
 {
     if (huart->Instance == USART1) //RS485
 	{
-        if (false == State.bits.S_PROCESS_LORA)
-        {
-            Lora_Rec.au8Buf[Lora_Rec.u8Len++] = recUART1;
-            Lora_Rec.u16Timeout = 0;
-            Lora_Rec.bFlagRec = true;
-            if (UART_MAX_LEN <= Lora_Rec.u8Len)
-            {
-                memset(&Lora_Rec.au8Buf, 0, sizeof(Lora_Rec.au8Buf));
-                Lora_Rec.u8Len = 0;
-            }
-        }
+		uint8_t rec1 = recUART1;
 		HAL_UART_Receive_IT(&huart1, &recUART1, 1);
 	}
     else if (huart->Instance == USART3) //DBG
 	{
-        if (false == State.bits.S_SEND_DBG)
-        {
-            DBG_Rec.au8Buf[DBG_Rec.u8Len++] = recUART3;
-            DBG_Rec.u16Timeout = 0;
-            DBG_Rec.bFlagRec = true;
-            if (UART_MAX_LEN <= DBG_Rec.u8Len)
-            {
-                memset(&DBG_Rec.au8Buf, 0, sizeof(DBG_Rec.au8Buf));
-                DBG_Rec.u8Len = 0;
-            }
-        }
+		uint8_t rec3 = recUART3;
 		HAL_UART_Receive_IT(&huart3, &recUART3, 1);
 	}
 }
