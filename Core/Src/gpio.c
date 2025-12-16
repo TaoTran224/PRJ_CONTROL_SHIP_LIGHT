@@ -51,15 +51,15 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, LIGHT_10_Pin|LIGHT_11_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, LIGHT_10_Pin|LIGHT_11_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_STT_Pin|LED_RUN_Pin|RS485_ENB_Pin|LIGHT_0_Pin
-                          |LIGHT_1_Pin|LIGHT_2_Pin, GPIO_PIN_RESET);
+                          |LIGHT_1_Pin|LIGHT_2_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, SDN_Pin|LIGHT_3_Pin|LIGHT_4_Pin|LIGHT_5_Pin
-                          |LIGHT_6_Pin|LIGHT_7_Pin|LIGHT_8_Pin|LIGHT_9_Pin, GPIO_PIN_RESET);
+                          |LIGHT_6_Pin|LIGHT_7_Pin|LIGHT_8_Pin|LIGHT_9_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(SPI_NSS_GPIO_Port, SPI_NSS_Pin, GPIO_PIN_SET);
@@ -103,7 +103,7 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : PtPin */
   GPIO_InitStruct.Pin = nIRQ_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(nIRQ_GPIO_Port, &GPIO_InitStruct);
 

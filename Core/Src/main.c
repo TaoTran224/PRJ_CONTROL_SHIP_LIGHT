@@ -74,7 +74,7 @@ int main(void)
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
     StartUp();
-    LoadBattery();
+    Config_Module();
 
 	Rf_Init();
 	Rf_ModeRx();
@@ -91,9 +91,8 @@ int main(void)
     /* USER CODE END WHILE */
  	  WDT_Clear();
 	  Rf_RecProcess();
-	  //Rf_Config();
-	  Lora_Process();
-	  Beacon_ResponseProcess();
+	  Rf_Config();
+	  Output_Process();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

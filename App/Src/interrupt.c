@@ -15,7 +15,7 @@ volatile uint32_t u32TimeSendVol = 0;
 volatile uint32_t u32TimeConfigRf;
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_7))
+	if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(nIRQ_GPIO_Port, nIRQ_Pin))
 	{
 		if (true == nIRQ_Enable)
 		{
@@ -44,11 +44,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef* htim)
         {
             if (900 <= (LED_Blink++))
             {
-                HAL_GPIO_WritePin(LED_RUN_GPIO_Port, LED_STT_Pin, GPIO_PIN_RESET);
+                HAL_GPIO_WritePin(LED_RUN_GPIO_Port, LED_RUN_Pin, GPIO_PIN_RESET);
 			}
             if (1000 <= LED_Blink)
             {
-                HAL_GPIO_WritePin(LED_RUN_GPIO_Port, LED_STT_Pin, GPIO_PIN_SET);
+                HAL_GPIO_WritePin(LED_RUN_GPIO_Port, LED_RUN_Pin, GPIO_PIN_SET);
                 LED_Blink = 0;
             }
 		}

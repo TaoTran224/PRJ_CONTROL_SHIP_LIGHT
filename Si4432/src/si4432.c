@@ -14,7 +14,7 @@ bool nIRQ_Enable = false;
 
 //void Si4432_WriteReg(uint8_t reg, uint8_t val)
 //{
-//    uint8_t tx[2] = { reg | 0x80, val }; // Bit 7 = 1 d? ghi
+//    uint8_t tx[2] = { reg | 0x80, val };
 //
 //    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
 //	delay_us(100);
@@ -33,12 +33,12 @@ bool nIRQ_Enable = false;
 //    HAL_SPI_Receive(&hspi2, &rx, 1, HAL_MAX_DELAY);
 //    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 //
-//    return rx; // byte th? 2 là d? li?u d?c
+//    return rx;
 //}
 
  void Si4432_WriteReg(uint8_t reg, uint8_t val)
 {
-    uint8_t tx[2] = { reg | 0x80, val }; // Bit 7 = 1 d? ghi
+    uint8_t tx[2] = { reg | 0x80, val };
 
 
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
@@ -50,7 +50,7 @@ bool nIRQ_Enable = false;
 
 uint8_t Si4432_ReadReg(uint8_t reg)
 {
-    uint8_t tx[2] = { 0x00, 0x00 }; // Bit 7 = 0 d? d?c   reg & 0x7F, 0x00 };
+    uint8_t tx[2] = { 0x00, 0x00 };
     uint8_t rx[2] = {0, 0};
 	tx[0] = reg;
 	tx[1] = reg;
@@ -59,7 +59,7 @@ uint8_t Si4432_ReadReg(uint8_t reg)
     HAL_SPI_TransmitReceive(&hspi2, tx, rx, 2, 4);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
 	//delay_us(10);
-    return rx[1]; // byte th? 2 là d? li?u d?c
+    return rx[1];
 }
 
 static void Si4432_PowerOn(void)
@@ -113,7 +113,7 @@ static void Si4432_ConfigFreg(void)
                               0x25, 0x00, 0x28, 0x3E, 0x29, 0x8D, 0xFF, 0x06, 0x08, 0x22, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                               0x00, 0x00, 0x64, 0x6E, 0x64, 0x6E, 0xFF, 0xFF, 0xFF, 0xFF, 0x1E, 0xA3, 0xD7, 0x20, 0x23, 0x10,
                               0x00, 0x00, 0x50, 0xFA, 0x00, 0x32, 0x24, 0x78};  // f = 410MHz, channel 500kHz
-	//Cs thanh ghi 0x6D:0x1F max
+	//0x6D:0x1F max
     uint8_t i = 0;
 #ifdef DBG_SEND
     DBG_SendStr("Si4432_ConfigFreg\n");
@@ -183,12 +183,12 @@ void Si4432_SendRf(uint8_t* buf, const uint8_t len)
 
     Si4432_ClearFlag();
     Si4432_WriteReg(0x07, 0x09);    //send
-    while ((GPIO_PIN_SET == HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_7)) & ((--timeout) > 0)) ;
+    while ((GPIO_PIN_SET == HAL_GPIO_ReadPin(nIRQ_GPIO_Port, nIRQ_Pin)) & ((--timeout) > 0)) ;
     Si4432_ClearFlag();
     //LED_GREEN = LED_OFF;
 }
 
-// tach lay mang du lieu RF nhan duoc
+
 uint8_t Si4432_ReceiveData(uint8_t* buf, uint8_t* len)
 {
     uint8_t i = 0;
@@ -196,7 +196,7 @@ uint8_t Si4432_ReceiveData(uint8_t* buf, uint8_t* len)
 	DBG_SendStr("Si4432_ReceiveData\n");
 	#endif
     Si4432_ModeStandBy();
-    //LED_RED = LED_ON;
+    HAL_GPIO_WritePin(LED_STT_GPIO_Port, LED_STT_Pin, GPIO_PIN_RESET);
     *len = Si4432_ReadReg(0x4b);
     Si4432_ClearFlag();
     for (i = 0; i < *len; i++)
@@ -209,7 +209,7 @@ uint8_t Si4432_ReceiveData(uint8_t* buf, uint8_t* len)
 	DBG_SendStr(log1);
 	DBG_SendBuffer(buf, *len);
     #endif
-    //LED_RED = LED_OFF;
+    HAL_GPIO_WritePin(LED_STT_GPIO_Port, LED_STT_Pin, GPIO_PIN_SET);
     return *len;
 }
 

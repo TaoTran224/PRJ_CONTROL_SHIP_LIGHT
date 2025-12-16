@@ -11,6 +11,7 @@
 
 BeaconType Beacon;
 
+OutputType Output[OUTPUT_MAX];
 
 uint8_t recUART1;
 uint8_t recUART3;
@@ -60,7 +61,61 @@ void SystemClock_Config(void)
   }
 }
 
+void Output_Init(void)
+{
+    memset(&Output, 0 , sizeof(Output));
 
+    Output[0].GPIO = LIGHT_0_GPIO_Port;
+    Output[0].GPIO_Pin = LIGHT_0_Pin;
+
+    Output[1].GPIO = LIGHT_1_GPIO_Port;
+    Output[1].GPIO_Pin = LIGHT_1_Pin;
+
+    Output[2].GPIO = LIGHT_2_GPIO_Port;
+    Output[2].GPIO_Pin = LIGHT_2_Pin;
+
+    Output[3].GPIO = LIGHT_3_GPIO_Port;
+    Output[3].GPIO_Pin = LIGHT_3_Pin;
+
+    Output[4].GPIO = LIGHT_4_GPIO_Port;
+    Output[4].GPIO_Pin = LIGHT_4_Pin;
+
+    Output[5].GPIO = LIGHT_5_GPIO_Port;
+    Output[5].GPIO_Pin = LIGHT_5_Pin;
+
+    Output[6].GPIO = LIGHT_6_GPIO_Port;
+    Output[6].GPIO_Pin = LIGHT_6_Pin;
+
+    Output[7].GPIO = LIGHT_7_GPIO_Port;
+    Output[7].GPIO_Pin = LIGHT_7_Pin;
+
+    Output[8].GPIO = LIGHT_8_GPIO_Port;
+    Output[8].GPIO_Pin = LIGHT_8_Pin;
+
+    Output[9].GPIO = LIGHT_9_GPIO_Port;
+    Output[9].GPIO_Pin = LIGHT_9_Pin;
+
+    Output[10].GPIO = LIGHT_10_GPIO_Port;
+    Output[10].GPIO_Pin = LIGHT_10_Pin;
+
+    Output[11].GPIO = LIGHT_11_GPIO_Port;
+    Output[11].GPIO_Pin = LIGHT_11_Pin;
+
+//    Output[23].eu8Mode = M_ON;
+
+//    for (uint8_t i = 0; i < OUTPUT_MAX; i++)
+//    {
+//         for (uint8_t j = 0; j < 5; j++)
+//         {
+//              HAL_GPIO_WritePin(Output[i].GPIO, Output[i].GPIO_Pin, GPIO_PIN_SET);
+//              HAL_Delay(50);
+//              HAL_GPIO_WritePin(Output[i].GPIO, Output[i].GPIO_Pin, GPIO_PIN_RESET);
+//              HAL_Delay(50);
+//              WDT_Clear();
+//         }
+//    }
+
+}
 
 void SetupInit(void)
 {
@@ -72,6 +127,8 @@ void SetupInit(void)
     Address.u8Slave = Address.u8Full;
 //    Beacon.u32TimeWait = (((uint32_t)Address.u8Slave) << 9) + 200;
 //    Beacon.u8TimeWaitToSendLora = Address.u8Slave << 4;
+
+	Output_Init();
 }
 
 void StartUp(void)

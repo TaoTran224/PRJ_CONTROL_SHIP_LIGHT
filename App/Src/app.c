@@ -109,7 +109,7 @@ void Lora_Process(void)
 }
 
 
-void LoadBattery(void)
+void Config_Module(void)
 {
 //    char buf1[13] = "Start RS485\n";
 //    char buf2[13] = "Start RS232\n";
@@ -165,17 +165,25 @@ void Rf_RecProcess(void)
         DBG_SendStr("Rf_RecProcess\n");
 #endif
 		Rf_ReceiveData(Rf.au8Buf, &Rf.u16BufRealLen);
-		Rf_OldDataLen = Rf.u16BufRealLen;
-		memcpy(Rf_OldData, Rf.au8Buf, Rf_OldDataLen);
-		if (true == AnalyzeRfRec(Rf_OldData, Rf_OldDataLen))
+		if ((true == AnalyzeRfRec(Rf.au8Buf, Rf.u16BufRealLen)) && (10 == Rf.u16BufRealLen))
 		{
+			uint32_t out = ((uint32_t)Rf.au8Buf[5] << 24) + ((uint32_t)Rf.au8Buf[6] << 16) + ((uint32_t)Rf.au8Buf[7] << 8);
 #ifdef DBG_SEND
-			logLen = sprintf(log1, "INPUT=%d\n",Rf.au8Buf[5]>>4);
-        	DBG_SendStr(log1);
+			logLen = sprintf(log1, "Out = %lu\n", out);
+			DBG_SendStr(log1);
 #endif
-
+			for (uint8_t i = 0; i < OUTPUT_MAX; i++)
+			{
+				if (0x01 == ((uint8_t)(out>>(30 - (i << 1))) & 0x03))
+				{
+					Output[i].eu8Mode = M_ON;
+				}
+				else
+				{
+					Output[i].eu8Mode = M_OFF;
+				}
+			}
 		}
-		Rf_SendData((uint8_t*)"V1 TRANSFER RETURN\n", 19);
 		Rf_ModeRx();
 		Rf.bFlagRec = false;
 		u32TimeConfigRf = 0;
@@ -184,7 +192,7 @@ void Rf_RecProcess(void)
 
 void Rf_Config(void)
 {
-	 if (20000 <=u32TimeConfigRf)
+	 if (19237 <=u32TimeConfigRf)
 	 {
 		 //Battery_Measurement();
 		 Rf_Init();
@@ -192,3 +200,39 @@ void Rf_Config(void)
 		 u32TimeConfigRf = 0;
 	 }
 }
+
+
+
+void Output_Process(void)
+{
+    for (uint8_t i = 0; i < OUTPUT_MAX; i++)
+    {
+        if (M_ON == Output[i].eu8Mode)
+        {
+            HAL_GPIO_WritePin(Output[i].GPIO, Output[i].GPIO_Pin, GPIO_PIN_RESET);
+        }
+        else if (M_OFF == Output[i].eu8Mode)
+        {
+            HAL_GPIO_WritePin(Output[i].GPIO, Output[i].GPIO_Pin, GPIO_PIN_SET);
+        }
+    }
+
+
+
+
+
+//	for (uint8_t i = 0; i < OUTPUT_MAX; i++)
+//	{
+//		for (uint8_t j = 0; j < 5; j++)
+//		{
+//			WDT_Clear();
+//			HAL_GPIO_WritePin(Output[i].GPIO, Output[i].GPIO_Pin, GPIO_PIN_SET);
+//		    HAL_Delay(200);
+//
+//			HAL_GPIO_WritePin(Output[i].GPIO, Output[i].GPIO_Pin, GPIO_PIN_RESET);
+//			HAL_Delay(500);
+//		}
+//
+//	}
+}
+

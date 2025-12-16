@@ -66,7 +66,7 @@ void Lora_Process(void);
 void Rf_RecProcess(void);
 void Rf_Config(void);
 
-void LoadBattery(void);
+void Config_Module(void);
 
 
 void DebugInOut(void);
@@ -74,5 +74,6 @@ void DebugInOut(void);
 void DebugOut(void);
 
 void Led_Display(void);
+void Output_Process(void);
 
 #endif

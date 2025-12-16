@@ -17,7 +17,7 @@
 #include "usart.h"
 
 #define BUTTON_MAX (uint8_t)8
-#define OUTPUT_MAX (uint8_t)4
+#define OUTPUT_MAX (uint8_t)12
 #define TIME_SHORT_CIRCUIT (uint32_t)60000
 #define TIME_BROKEN TIME_SHORT_CIRCUIT
 #define BEACON_MAX_LEN (uint16_t)(20)
@@ -70,6 +70,8 @@ typedef struct
     OutputModeType eu8Mode;
     uint8_t timeout;
 } __attribute__((packed)) OutputType;
+extern OutputType Output[OUTPUT_MAX];
+
 extern OutputType Output[OUTPUT_MAX];
 
 typedef enum
