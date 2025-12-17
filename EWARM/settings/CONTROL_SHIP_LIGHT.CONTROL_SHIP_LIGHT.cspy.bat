@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\settings\CONTROL_SHIP_LIGHT.CONTROL_SHIP_LIGHT.general.xcl" --backend -f "D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\settings\CONTROL_SHIP_LIGHT.CONTROL_SHIP_LIGHT.driver.xcl" 
+"C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "D:\STM\2025_12\Control_Light\EWARM\settings\CONTROL_SHIP_LIGHT.CONTROL_SHIP_LIGHT.general.xcl" --backend -f "D:\STM\2025_12\Control_Light\EWARM\settings\CONTROL_SHIP_LIGHT.CONTROL_SHIP_LIGHT.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\settings\CONTROL_SHIP_LIGHT.CONTROL_SHIP_LIGHT.general.xcl" "--debug_file=%~1" --backend -f "D:\Firmware_TNT\5_DA_2025\6_mach_tau_thuy\Firmware\Prj_Control_Ship_Light\EWARM\settings\CONTROL_SHIP_LIGHT.CONTROL_SHIP_LIGHT.driver.xcl" 
+"C:\Program Files\IAR Systems\Embedded Workbench 9.0\common\bin\cspybat" -f "D:\STM\2025_12\Control_Light\EWARM\settings\CONTROL_SHIP_LIGHT.CONTROL_SHIP_LIGHT.general.xcl" "--debug_file=%~1" --backend -f "D:\STM\2025_12\Control_Light\EWARM\settings\CONTROL_SHIP_LIGHT.CONTROL_SHIP_LIGHT.driver.xcl" 
 
 @echo off 
 :end
